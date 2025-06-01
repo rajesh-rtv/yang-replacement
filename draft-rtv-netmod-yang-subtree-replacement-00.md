@@ -19,18 +19,18 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "Enhancements to the YANG Language for Capturing Subtree Replacements"
+abbrev: "YANG Subtree Replacements"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-rtv-netmod-yang-subtree-replacement-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: OPS
+workgroup: NETMOD Working Group
 keyword:
  - next generation
  - unicorn
@@ -40,14 +40,14 @@ venue:
   type: Working Group
   mail: WG@example.com
   arch: https://example.com/WG
-  github: USER/REPO
+  github: rajesh-rtv/yang-replacement
   latest: https://example.com/LATEST
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Rajesh TV
+    organization: Cisco Systems
+    email: rtv-cisco@cisco.com
 
 normative:
 
