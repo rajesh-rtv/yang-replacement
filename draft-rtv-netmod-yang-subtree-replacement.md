@@ -48,106 +48,106 @@ venue:
 author:
  -
     fullname: Rajesh Tarakkad Venkateswaran
-    organization: Cisco Systems
+    organization: IETF
     email: rtv@cisco.com
  -
     fullname: Sai Venkata Giri Karnati
-    organization: Cisco Systems
+    organization: IETF
     email: saikarna@cisco.com
  -
     fullname: Sarthak Jain
-    organization: Cisco Systems
+    organization: IETF
     email: sarthakj@cisco.com
  -
     fullname: Veena Ramamoorthy
-    organization: Cisco Systems
+    organization: IETF
     email: vemoorth@cisco.com
  -
     fullname: Venkata Harish Nagamangalam
-    organization: Cisco Systems
+    organization: IETF
     email: vnagaman@cisco.com
 
 normative:
   RFC7950:
-    title: The YANG 1.1 Data Modeling Language
-    author:
-      - ins: M. Bjorklund, Ed.
-        name: Martin Bjorklund
-        org: Tail-f Systems
-    date: 2016-08
-    seriesinfo:
-      RFC: 7950
-      DOI: 10.17487/RFC7950
   RFC8407:
-    title: Guidelines for Authors and Reviewers of Documents Containing YANG Data Models
-    author:
-      - ins: A. Bierman
-        name: Andy Bierman
-        org: YumaWorks
-    date: 2018-10
-    seriesinfo:
-      RFC: 8407
-      DOI: 10.17487/RFC8407
 
 informative:
   RFC8340:
-    title: YANG Tree Diagrams
-    author:
-      - ins: M. Bjorklund
-        name: Martin Bjorklund
-        org: Tail-f Systems
-      - ins: L. Berger, Ed.
-        name: Lou Berger
-        org: LabN Consulting, L.L.C.
-    date: 2018-03
-    seriesinfo:
-      RFC: 8340
-      DOI: 10.17487/RFC8340
 
 ...
 
 --- abstract
 
-YANG is a data modeling language used to define the configuration and operational data of network devices. As network technologies evolve, some nodes within YANG models may become deprecated or obsolete. This document proposes the introduction of a new mechanism using a YANG extension to specify the updated XPath node when an existing node is deprecated or obsolete. By embedding replacement information directly within the YANG model, this proposal enables programmatic inference of replacements and automated tooling for managing node replacements.
+As YANG data models evolve over time, model nodes are often deprecated or made obsolete. Current practices for documenting replacement paths for these nodes rely on unstructured external documents, making it difficult to programmatically identify and migrate to replacement nodes. This document proposes a YANG extension mechanism that embeds replacement path information directly within YANG models, enabling automation tools to identify replacement nodes and assist users in migrating from deprecated elements to their replacements.
 
 
 --- middle
 
 # Introduction
 
-YANG {{RFC7950}} is a data modeling language used to define the configuration and operational data of network devices. As network technologies evolve, some nodes within YANG models may become deprecated or obsolete. This document proposes the introduction of a new mechanism using a YANG extension to specify the updated XPath node when an existing node is deprecated or obsolete. By embedding replacement information directly within the YANG model, this proposal enables a programmatic inference of replacements and enables automated tooling for managing node replacements.
+YANG {{RFC7950}} is a data modeling language used to define the configuration and operational data of network devices. As network devices and services evolve, YANG data models must also evolve to support new features and functionality. This evolution often requires deprecating or obsoleting existing nodes in favor of newer, more appropriate structures.
+
+The YANG language provides "status" statements to indicate that a data node has been deprecated or made obsolete, but it does not provide a standardized mechanism to indicate what new node(s) should be used instead. This lack of standardized replacement information creates challenges for users of YANG models who need to update their systems to use newer model elements.
 
 # Problem Statement
 
-Currently, the only way to communicate replacement paths for deprecated nodes is through separate, unstructured documents like CSV files or emails. This approach suffers from several drawbacks:
+Currently, when YANG model nodes are deprecated or obsoleted, the information about replacement nodes is typically documented in separate, unstructured documents such as CSV files, release notes, or even informal emails. This approach suffers from several significant drawbacks:
 
-- It is inefficient, requiring manual searching and correlation of information.
-- It is error-prone, as the external document may not accurately reflect the node structure and paths defined in the YANG files.
-- It hinders automation, as there is no standardized way for tools to programmatically identify and report replacement nodes.
+- **Inefficiency**: Network operators must manually search through external documentation to find replacement paths, often requiring correlation between multiple documents.
+
+- **Error-prone**: External documentation can become outdated or may not accurately reflect the current node structure and paths defined in the YANG files, leading to incorrect migrations.
+
+- **Lack of automation**: Without a standardized, machine-readable way to express replacement information, tools cannot programmatically identify replacement nodes or assist users in migration.
+
+- **Documentation fragmentation**: Replacement information becomes scattered across multiple documents, making it difficult to maintain a complete view of model evolution.
+
+These challenges are particularly acute for large-scale network operators who must manage configuration across numerous devices with diverse YANG models, and for vendors who need to support customers through model transitions.
+
+It's worth noting that this functionality has been proposed as a potential enhancement to a future version of the YANG language itself [YANG-NEXT]. However, developing and standardizing a new version of YANG would likely take a long while. The solution proposed in this document is designed to be standardized quickly and used with existing YANG modules and infrastructure.
 
 # Solution
 
-To address the challenges associated with deprecated XPath nodes in YANG models, we propose leveraging an extension-based approach rather than introducing a new core keyword to the YANG language. This approach follows the recommendations in {{RFC8407}} for extending YANG functionality. Specifically, we introduce a custom extension, `cisco-ext:replacement-info`, which provides metadata indicating the appropriate replacement for a deprecated or obsolete node. This extension will carry information such as the XPath or reference to the updated node, and optionally indicate whether the feature is scheduled for removal.
+To address the challenges associated with deprecated or obsolete nodes in YANG models, we propose an extension-based approach that embeds replacement information directly within the YANG models themselves. This approach follows the recommendations in {{RFC8407}} for extending YANG functionality without modifying the core language.
 
-This approach maintains backward compatibility and minimizes disruption to existing tooling and workflows. It enables YANG developers and tools to manage deprecations more effectively, offering clear guidance for transitions and supporting long-term model evolution with improved documentation and automation support.
+## Proposed Extension Mechanism
+
+Specifically, we introduce a custom extension, `ietf-ext:replacement-info`, which provides structured metadata indicating the appropriate replacement for a deprecated or obsolete node. This extension carries precise XPath information to the replacement node(s), enabling both human operators and automated tools to locate the new node.
+
+The benefits of this approach include:
+
+- **Backward compatibility**: The extension approach doesn't require changes to the YANG language itself and is compatible with existing tools.
+
+- **Self-documenting models**: Replacement information is embedded directly in the models, eliminating the need for external documentation.
+
+- **Automation enablement**: Tools can programmatically identify replacement paths and assist with migration.
+
+- **Improved developer experience**: YANG model developers and users gain clear guidance for transitions between deprecated and replacement nodes.
+
+- **Support for complex replacements**: The extension can represent various replacement scenarios, including one-to-one, one-to-many, many-to-one replacements and replacements across different YANG modules.
 
 # Implementation of the Replacement Keyword Across Various Scenarios
 
-## Reasoning for Path Selection
+The following sections demonstrate how the `ietf-ext:replacement-info` extension can be applied across different replacement scenarios. The examples illustrate common patterns encountered when evolving YANG models and show how the extension provides clear migration paths for each situation.
 
-- **REPLACEMENT_ABSOLUTE_PATH:** Used when the destination leaf is in a straightforward structure, such as a container, allowing easy pinpointing from the yang root. Indicates that the XPath provided is an absolute path from the root of the YANG model.
-- **REPLACEMENT_REL_PATH:** Used when the destination leaf is part of a grouping structure that might be utilized in multiple locations. This choice allows the path to fit multiple locations attributes seamlessly. Indicates that the XPath provided is a relative path from the top level of a grouping.
-- **Absolute XPath (abs_path):** For nodes not within groupings, use an absolute XPath.
+## Path Reference Types
+
+To accommodate different structural relationships between deprecated nodes and their replacements, we define two types of path references:
+
+- **REPLACEMENT_ABSOLUTE_PATH:** Used when the replacement node can be directly referenced with an absolute path from the YANG model root. This is the most common case for nodes in standard containers and lists.
+
+- **REPLACEMENT_REL_PATH:** Used when the replacement node appears in multiple places, such as within structures like groupings, augments, etc. This approach ensures the reference remains valid regardless of where the node is used.
+
+Each path reference type has specific syntax requirements and use cases, which are illustrated in the examples that follow.
 
 ## Case 1: Simple Node with Replacement
 
 - **Description:** Node that is deprecated and has a replacement node
-- **Syntax:** `cisco-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";`
+- **Syntax:** `ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";`
 
 ## Case 2: Node Deprecated with No Replacement
 
 - **Description:** Node that is deprecated and has no replacement node.
-- **Syntax:** `cisco-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:None";`
+- **Syntax:** `ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:None";`
 
 ## Case 3: Grouping Cases
 
@@ -161,22 +161,22 @@ This approach ensures that nodes within groupings can be accurately identified a
 ### Sub-Case 1: Node Deprecated Outside Grouping, Replacement Inside Grouping
 
 - **Description:** A node that is deprecated outside a grouping structure but has a replacement node within a specific grouping.
-- **Syntax:** `cisco-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{grouping_name}/{rel_path_inside_grouping}";`
+- **Syntax:** `ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{grouping_name}/{rel_path_inside_grouping}";`
 
 ### Sub-Case 2: Node Deprecated Inside Grouping, Replacement Outside in a non-group
 
 - **Description:** A node that is deprecated within a grouping structure but has a replacement node outside any grouping.
-- **Syntax:** `cisco-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";`
+- **Syntax:** `ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";`
 
 ### Sub-Case 3: Node Deprecated Inside Grouping, Replacement Inside Existing/New Grouping
 
 - **Description:** A node that is deprecated within a grouping structure and has a replacement node within the same or a new grouping structure.
-- **Syntax:** `cisco-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{grouping_name}/{rel_path_inside_grouping}";`
+- **Syntax:** `ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{grouping_name}/{rel_path_inside_grouping}";`
 
 ### Sub-Case 4: Node Deprecated Outside Grouping, Replacement Outside Grouping
 
 - **Description:** A node that is deprecated outside a grouping structure and has a replacement node also outside any grouping.
-- **Syntax:** `cisco-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";`
+- **Syntax:** `ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";`
 
 ## Summary of Syntax Notations
 
@@ -190,20 +190,23 @@ When deprecating structures like container or list at their respective levels, i
 
 # Example Implementation
 
-## `cisco-extensions.yang` module
+The following examples demonstrate how the replacement path extensions can be implemented. These are vendor-neutral examples created specifically for this document to illustrate the functionality and are not intended to be actual YANG modules used in production environments.
+
+## `ietf-replace-path-ext.yang` module
 
 ```yang
-module cisco-extensions {
-  namespace "http://cisco.com/yang/cisco-extensions";
-  prefix cisco-ext;
+module ietf-replace-path-ext {
+  namespace "urn:ietf:params:xml:ns:yang:ietf-replace-path-ext";
+  prefix ietf-ext;
 
-  organization "Cisco Systems";
+  organization "IETF NETMOD Working Group";
 
-  contact <mailto:cs-yang@cisco.com>;
+  contact "IETF NETMOD Working Group <netmod@ietf.org>";
 
   description
     "This module defines extensions for additional metadata.
-     Copyright (c) 2024 by Cisco Systems, Inc.";
+     Copyright (c) 2024 IETF Trust and the persons identified as
+     authors of the code. All rights reserved.";
 
   extension replacement-info {
     argument "value";
@@ -213,20 +216,20 @@ module cisco-extensions {
 }
 ```
 
-## `Cisco-IOS-XE-deprecation-regression-test-17131.yang` module
+## `example-deprecation-regression-test-17131.yang` module
 
 ```yang
-module Cisco-IOS-XE-deprecation-regression-test-17131 {
+module example-deprecation-regression-test-17131 {
   yang-version 1.1;
-  namespace "http://cisco.com/ns/yang/Cisco-IOS-XE-deprecation-regression-test";
+  namespace "urn:ietf:params:xml:ns:yang:example-deprecation-regression-test";
   prefix depr-reg-test;
 
-  import Cisco-IOS-XE-depr-reg-test-helper-17131 {
+  import example-depr-reg-test-helper-17131 {
     prefix depr-reg-test-helper;
   }
 
-  import cisco-extensions {
-    prefix cisco-ext;
+  import ietf-replace-path-ext {
+    prefix ietf-ext;
   }
 
   container deprecation-regression-test {
@@ -240,8 +243,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
           description
             "This leaf gives information about Case 1 - Leaf deprecated with a
              replacement in the same container, leaf case1 (DEPRECATED)";
-          cisco-ext:replacement-info
-            "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case1-replacement";
+          ietf-ext:replacement-info
+            "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case1-replacement";
         }
         leaf case1-replacement {
           type uint16;
@@ -257,19 +260,19 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
           description
             "This leaf gives information about Case 2 - Leaf deprecated with a
              replacement in a different container, leaf i (DEPRECATED)";
-          cisco-ext:replacement-info
-            "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/replacementContainerCase2/case2-replacement";
+          ietf-ext:replacement-info
+            "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/replacementContainerCase2/case2-replacement";
         }
 
-        // Case 3 : Leaf deprecated with a replacement located in another YANG file(Cisco-IOS-XE-deprecation-regression-test-file-2.yang)
+        // Case 3 : Leaf deprecated with a replacement located in another YANG file(example-deprecation-regression-test-file-2.yang)
         leaf case3 {
           type uint8;
           status deprecated;
           description
             "This leaf gives information about Case 3 - Leaf deprecated with a
              replacement located in another YANG file, leaf case3 (DEPRECATED)";
-          cisco-ext:replacement-info
-            "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-file-2-17131:deprecation-regression-test-2/configurations/config/case3-replacement";
+          ietf-ext:replacement-info
+            "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-file-2-17131:deprecation-regression-test-2/configurations/config/case3-replacement";
         }
 
         // Case 4 : Leaf inside a list deprecated with a replacement in a different list.
@@ -285,8 +288,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
               "This leaf gives information about Case 4 - Leaf inside a list
                deprecated with a replacement in a different list, leaf case4
                (DEPRECATED)";
-            cisco-ext:replacement-info
-              "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementListCase4/case4-replacement";
+            ietf-ext:replacement-info
+              "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementListCase4/case4-replacement";
           }
         }
         list replacementListCase4 {
@@ -312,8 +315,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
               "This leaf gives information about Case 5 - Leaf inside a grouping
                deprecated, replaced in the same grouping, and used across multiple
                containers, leaf case5 (DEPRECATED)";
-            cisco-ext:replacement-info
-              "REPLACEMENT_REL_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:groupCase5/case5-replacement";
+            ietf-ext:replacement-info
+              "REPLACEMENT_REL_PATH:/example-deprecation-regression-test-17131:groupCase5/case5-replacement";
           }
           leaf case5-replacement {
             type uint16;
@@ -364,8 +367,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
             "This leaf gives information about Case 7 - Leaf deprecated, replaced
              by a different leaf with the same name in a different location, leaf
              case7 (DEPRECATED)";
-          cisco-ext:replacement-info
-            "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementContainerCase7/case7";
+          ietf-ext:replacement-info
+            "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementContainerCase7/case7";
         }
         container replacementContainerCase7 {
           presence "true";
@@ -389,8 +392,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
           description
             "This leaf-list gives information about Case 8 - Leaf-list deprecated,
              replaced by another leaf-list, leaf-list case8 (DEPRECATED)";
-          cisco-ext:replacement-info
-            "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case8-replacement";
+          ietf-ext:replacement-info
+            "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case8-replacement";
         }
         leaf-list case8-replacement {
           type uint8;
@@ -407,8 +410,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
           description
             "This leaf gives information about Case 9 - Empty leaf deprecated,
              replaced by another empty leaf, leaf case9 (DEPRECATED)";
-          cisco-ext:replacement-info
-            "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case9-replacement";
+          ietf-ext:replacement-info
+            "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case9-replacement";
         }
         leaf case9-replacement {
           type empty;
@@ -426,16 +429,16 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
               "This leaf gives information about Case 10 - A container is
                deprecated with a replacement container, leaf case10
                (DEPRECATED)";
-            cisco-ext:replacement-info
-              "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementContainerCase10/case10-replacement";
+            ietf-ext:replacement-info
+              "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementContainerCase10/case10-replacement";
           }
           status deprecated;
           description
             "This container gives information about Case 10 - A container is
              deprecated with a replacement container, containerCase10
              (DEPRECATED)";
-          cisco-ext:replacement-info
-            "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementContainerCase10";
+          ietf-ext:replacement-info
+            "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementContainerCase10";
         }
         container replacementContainerCase10 {
           leaf case10-replacement {
@@ -458,8 +461,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
           description
             "This leaf gives information about Case 11 - A multiple deprecated
              items are replaced by a single item, leaf case11a (DEPRECATED)";
-          cisco-ext:replacement-info
-            "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case11-replacement";
+          ietf-ext:replacement-info
+            "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case11-replacement";
         }
         leaf case11b {
           type uint8;
@@ -467,8 +470,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
           description
             "This leaf gives information about Case 11 - A multiple deprecated
              items are replaced by a single item, leaf case11b (DEPRECATED)";
-          cisco-ext:replacement-info
-            "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case11-replacement";
+          ietf-ext:replacement-info
+            "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case11-replacement";
         }
         leaf case11-replacement {
           type uint16;
@@ -485,8 +488,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
           }
           leaf case12 {
             type uint8;
-            cisco-ext:replacement-info
-              "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementListCase12/case12-replacement";
+            ietf-ext:replacement-info
+              "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementListCase12/case12-replacement";
           }
         }
         list replacementListCase12 {
@@ -509,8 +512,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
                 "This leaf gives information about Case 13 - In a choice-case, the
                  leaf is deprecated in one case with an alternative provided in a
                  new case, case13 (DEPRECATED)";
-              cisco-ext:replacement-info
-                "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/choice13/case13-replacement";
+              ietf-ext:replacement-info
+                "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/choice13/case13-replacement";
             }
           }
           case caseCase13Replacement {
@@ -525,28 +528,28 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
         }
 
         // Case 14 : A single leaf is deprecated, and its functionality is distributed among multiple new leaves.
-        leaf case11 {
+        leaf case14 {
           type uint16;
           status deprecated;
           description
             "This leaf gives information about Case 14 - A single leaf is
              deprecated, and its functionality is distributed among multiple new
-             leaves, case11 (DEPRECATED)";
-          cisco-ext:replacement-info
-            "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case14a-replacement,
-             REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation- regression-test/configurations/config/case14b-replacement";
+             leaves, case14 (DEPRECATED)";
+          ietf-ext:replacement-info
+            "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case14a-replacement,
+             REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/case14b-replacement";
         }
         leaf case14a-replacement {
           type uint8;
           description
-            "This leaf gives information about Case 11 - A single leaf is
+            "This leaf gives information about Case 14 - A single leaf is
              deprecated, and its functionality is distributed among multiple new
              leaves, case14a-replacement (NEW)";
         }
         leaf case14b-replacement {
           type uint8;
           description
-            "This leaf gives information about Case 11 - A single leaf is
+            "This leaf gives information about Case 14 - A single leaf is
              deprecated, and its functionality is distributed among multiple new
              leaves, case14b-replacement (NEW)";
         }
@@ -559,7 +562,7 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
             "This leaf gives information about Case 15 - A leaf is deprecated
              without alternate as the feature is no longer supported in higer
              versions, case15 (DEPRECATED)";
-          cisco-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:None";
+          ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:None";
         }
 
         // Case 16: An container is deprecated with a replacement, and the replacement value is specified at each level of the container and its child leaf elements.
@@ -569,8 +572,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
           description
             "This container gives information about Case 16 - An empty container is
              deprecated with a replacement, containerCase16 (DEPRECATED)";
-          cisco-ext:replacement-info
-            "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementContainerCase16";
+          ietf-ext:replacement-info
+            "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementContainerCase16";
 
           leaf case16-leaf1 {
             type string;
@@ -579,8 +582,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
               "This leaf gives information about Case 16 - Leaf case16-leaf1 is
                deprecated within the deprecated container, case16-leaf1
                (DEPRECATED)";
-            cisco-ext:replacement-info
-              "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementContainerCase16/case16a";
+            ietf-ext:replacement-info
+              "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementContainerCase16/case16a";
           }
 
           leaf case16-leaf2 {
@@ -590,8 +593,8 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
               "This leaf gives information about Case 16 - Leaf case16-leaf2 is
                deprecated within the deprecated container, case16-leaf2
                (DEPRECATED)";
-            cisco-ext:replacement-info
-              "REPLACEMENT_ABSOLUTE_PATH:/Cisco-IOS-XE-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementContainerCase16/case16b";
+            ietf-ext:replacement-info
+              "REPLACEMENT_ABSOLUTE_PATH:/example-deprecation-regression-test-17131:deprecation-regression-test/configurations/config/replacementContainerCase16/case16b";
           }
         }
 
@@ -621,22 +624,22 @@ module Cisco-IOS-XE-deprecation-regression-test-17131 {
 }
 ```
 
-## `Cisco-IOS-XE-deprecation-regression-test-helper-module-17131.yang` module
+## `example-deprecation-regression-test-helper-module-17131.yang` module
 
 ```yang
-module Cisco-IOS-XE-depr-reg-test-helper-17131 {
+module example-depr-reg-test-helper-17131 {
   yang-version 1.1;
 
-  namespace "http://cisco.com/ns/yang/Cisco-IOS-XE-depr-reg-test-helper";
+  namespace "urn:ietf:params:xml:ns:yang:example-depr-reg-test-helper";
 
   prefix depr-reg-test-helper;
 
-  organization "Cisco Systems, Inc.";
+  organization "IETF NETMOD Working Group";
 
-  contact "Cisco Systems, Inc.";
+  contact "IETF NETMOD Working Group <netmod@ietf.org>";
 
-  import cisco-extensions {
-    prefix cisco-ext;
+  import ietf-replace-path-ext {
+    prefix ietf-ext;
   }
 
   // Case 6 : Leaf inside a grouping deprecated, replaced in the same grouping but imported through a different module and used in various modules.
@@ -650,8 +653,8 @@ module Cisco-IOS-XE-depr-reg-test-helper-17131 {
          deprecated, replaced in the same grouping but imported through a
          different module and used in various modules, leaf case-6
          (DEPRECATED)";
-      cisco-ext:replacement-info
-        "REPLACEMENT_REL_PATH:/Cisco-IOS-XE-depr-reg-test-helper-module-17131/groupCase6/case6-replacement";
+      ietf-ext:replacement-info
+        "REPLACEMENT_REL_PATH:/example-depr-reg-test-helper-module-17131/groupCase6/case6-replacement";
     }
     leaf case6-replacement {
       type uint8;
@@ -666,22 +669,22 @@ module Cisco-IOS-XE-depr-reg-test-helper-17131 {
 }
 ```
 
-## `Cisco-IOS-XE-deprecation-regression-test-file-2-17131.yang` module
+## `example-deprecation-regression-test-file-2-17131.yang` module
 
 ```yang
-module Cisco-IOS-XE-deprecation-regression-test-file-2-17131 {
+module example-deprecation-regression-test-file-2-17131 {
   yang-version 1.1;
-  namespace "http://cisco.com/ns/yang/Cisco-IOS-XE-deprecation-regression-test";
+  namespace "urn:ietf:params:xml:ns:yang:example-deprecation-regression-test-file-2";
   prefix depr-reg-test-2;
 
-  import cisco-extensions {
-    prefix cisco-ext;
+  import ietf-replace-path-ext {
+    prefix ietf-ext;
   }
 
   container deprecation-regression-test-2 {
     container configurations {
       container config {
-        // Case 3 : Leaf deprecated with a replacement located in another YANG file(Cisco-IOS-XE-deprecation-regression- test-file-2.yang)
+        // Case 3 : Leaf deprecated with a replacement located in another YANG file(example-deprecation-regression-test-file-2.yang)
         leaf case3-replacement {
           type uint8;
           default 15;
@@ -696,11 +699,22 @@ module Cisco-IOS-XE-deprecation-regression-test-file-2-17131 {
 
 {::boilerplate bcp14-tagged}
 
+# Operational Considerations
+
+Network operators and YANG model consumers can leverage the information provided by the `ietf-ext:replacement-info` extension in several ways:
+
+- **Automated Migration Tools**: Software tools can be developed to scan configurations using deprecated nodes and automatically suggest or implement replacements.
+
+- **Documentation Generation**: Model documentation tools can highlight deprecated nodes and their replacements, making it easier for network operators to understand migration paths.
+
+- **Configuration Validation**: Validation tools can warn about the use of deprecated nodes and suggest alternatives based on the extension data.
+
+- **Training and Knowledge Transfer**: The explicit documentation of replacements can help in training and knowledge transfer as teams adopt newer model versions.
+
 # Security Considerations
 
-This document specifies an extension to the YANG language for documenting replacement paths for deprecated or obsolete nodes. As such, it does not introduce any new security risks beyond what exists in the current YANG language specification.
+This document specifies an extension to the YANG language for documenting replacement paths for deprecated or obsolete nodes. As such, it does not introduce any new security risks beyond what exists in the current YANG language specification {{RFC7950}}.
 
-Implementers should be aware that the replacement information could potentially be used for reconnaissance if it reveals information about internal system structure or capabilities not intended for public disclosure. Care should be taken to ensure that replacement path information does not inadvertently expose sensitive implementation details.
 
 # IANA Considerations
 
