@@ -1939,7 +1939,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-5.3-8">import ietf-replace-path-ext {
     prefix ietf-ext;
   }<a href="#section-5.3-8" class="pilcrow">¶</a></p>
-<p id="section-5.3-9">// Case 6 : Leaf inside a grouping deprecated, replaced in the same grouping but imported through a different module and used in various modules.
+<p id="section-5.3-9">// Case 6 : Leaf inside a grouping deprecated, replaced in the same grouping but imported through 
+  // a different module and used in various modules.
   grouping groupCase6 {
     leaf case6 {
       type uint8;
@@ -1947,9 +1948,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
       status deprecated;
       description
         "This leaf gives information about Case 6 - Leaf inside a grouping
-         deprecated, replaced in the same grouping but imported through a
-         different module and used in various modules, leaf case-6
-         (DEPRECATED)";
+         deprecated, replaced in the same grouping but imported through
+         a different module and used in various modules,
+         leaf case-6 (DEPRECATED)";
       ietf-ext:replacement-info
         "REPLACEMENT_REL_PATH:/example-depr-reg-test-helper-module-17131/groupCase6/case6-replacement";
     }
@@ -1958,9 +1959,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
       default 11;
       description
         "This leaf gives information about Case 6 - Leaf inside a grouping
-         deprecated, replaced in the same grouping but imported through a
-         different module and used in various modules, leaf case6-replacement
-         (NEW)";
+         deprecated, replaced in the same grouping but imported
+         through a different module and used in various modules,
+         leaf case6-replacement (NEW)";
     }
   }
 }
