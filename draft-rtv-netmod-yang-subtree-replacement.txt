@@ -238,8 +238,10 @@ Table of Contents
 
    YANG Example:
 
-   yang ietf-ext:replacement-info
-   "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
+   ```yang
+
+   ietf-ext:replacement-info
+   "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}"; ```
 
 4.3.  Case 2: Node Deprecated with No Replacement
 
@@ -247,7 +249,9 @@ Table of Contents
 
    YANG Example:
 
-   yang ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:None";
+   ```yang
+
+   ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:None"; ```
 
 4.4.  Case 3: Grouping Cases
 
@@ -275,8 +279,10 @@ Table of Contents
 
    YANG Example:
 
-   yang ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{gr
-   ouping_name}/{rel_path_inside_grouping}";
+   ```yang
+
+   ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{groupin
+   g_name}/{rel_path_inside_grouping}"; ```
 
 4.4.2.  Sub-Case 2: Node Deprecated Inside Grouping, Replacement Outside
         in a non-group
@@ -286,8 +292,10 @@ Table of Contents
 
    YANG Example:
 
-   yang ietf-ext:replacement-info
-   "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
+   ```yang
+
+   ietf-ext:replacement-info
+   "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}"; ```
 
 4.4.3.  Sub-Case 3: Node Deprecated Inside Grouping, Replacement Inside
         Existing/New Grouping
@@ -297,8 +305,10 @@ Table of Contents
 
    YANG Example:
 
-   yang ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{gr
-   ouping_name}/{rel_path_inside_grouping}";
+   ```yang
+
+   ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{groupin
+   g_name}/{rel_path_inside_grouping}"; ```
 
 4.4.4.  Sub-Case 4: Node Deprecated Outside Grouping, Replacement
         Outside Grouping
@@ -308,8 +318,10 @@ Table of Contents
 
    YANG Example:
 
-   yang ietf-ext:replacement-info
-   "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
+   ```yang
+
+   ietf-ext:replacement-info
+   "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}"; ```
 
 4.5.  Summary of Syntax Notations
 
@@ -337,9 +349,11 @@ Table of Contents
 
    YANG Example:
 
-   ```yang container old-container { status deprecated; ietf-
-   ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{replace
-   ment_container_path}";
+   ```yang
+
+   container old-container { status deprecated; ietf-ext:replacement-
+   info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{replacement_container_p
+   ath}";
 
    leaf old-leaf { status deprecated; ietf-ext:replacement-info
    "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{replacement_leaf_path}"; } }
@@ -357,7 +371,9 @@ Table of Contents
 
    YANG Example:
 
-   ```yang module ietf-replace-path-ext { namespace
+   ```yang
+
+   module ietf-replace-path-ext { namespace
    "urn:ietf:params:xml:ns:yang:ietf-replace-path-ext"; prefix ietf-ext;
 
    organization "IETF NETMOD Working Group";
@@ -377,9 +393,11 @@ Table of Contents
 
    YANG Example:
 
-   ```yang module example-deprecation-regression-test-17131 { yang-
-   version 1.1; namespace "urn:ietf:params:xml:ns:yang:example-
-   deprecation-regression-test"; prefix depr-reg-test;
+   ```yang
+
+   module example-deprecation-regression-test-17131 { yang-version 1.1;
+   namespace "urn:ietf:params:xml:ns:yang:example-deprecation-
+   regression-test"; prefix depr-reg-test;
 
    import example-depr-reg-test-helper-17131 { prefix depr-reg-test-
    helper; }
@@ -779,7 +797,9 @@ Table of Contents
 
    YANG Example:
 
-   ```yang module example-depr-reg-test-helper-17131 { yang-version 1.1;
+   ```yang
+
+   module example-depr-reg-test-helper-17131 { yang-version 1.1;
 
    namespace "urn:ietf:params:xml:ns:yang:example-depr-reg-test-helper";
 
@@ -810,8 +830,10 @@ Table of Contents
 
    YANG Example:
 
-   ```yang module example-deprecation-regression-test-file-2-17131 {
-   yang-version 1.1; namespace "urn:ietf:params:xml:ns:yang:example-
+   ```yang
+
+   module example-deprecation-regression-test-file-2-17131 { yang-
+   version 1.1; namespace "urn:ietf:params:xml:ns:yang:example-
    deprecation-regression-test-file-2"; prefix depr-reg-test-2;
 
    import ietf-replace-path-ext { prefix ietf-ext; }

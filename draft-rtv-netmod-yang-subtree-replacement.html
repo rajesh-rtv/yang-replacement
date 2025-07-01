@@ -1367,9 +1367,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
         </h3>
 <p id="section-4.2-1">Node that is deprecated and has a replacement node.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.2-2">YANG Example:<a href="#section-4.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.2-3"><code>yang
-ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
-</code><a href="#section-4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.2-3">```yang<a href="#section-4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.2-4">ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
+```<a href="#section-4.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="case-2-node-deprecated-with-no-replacement">
@@ -1379,9 +1379,9 @@ ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
         </h3>
 <p id="section-4.3-1">Node that is deprecated and has no replacement node.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.3-2">YANG Example:<a href="#section-4.3-2" class="pilcrow">¶</a></p>
-<p id="section-4.3-3"><code>yang
-ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:None";
-</code><a href="#section-4.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.3-3">```yang<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.3-4">ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:None";
+```<a href="#section-4.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="case-3-grouping-cases">
@@ -1399,9 +1399,9 @@ ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:None";
           </h4>
 <p id="section-4.4.1-1">A node that is deprecated outside a grouping structure but has a replacement node within a specific grouping.<a href="#section-4.4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.4.1-2">YANG Example:<a href="#section-4.4.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.4.1-3"><code>yang
-ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{grouping_name}/{rel_path_inside_grouping}";
-</code><a href="#section-4.4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.4.1-3">```yang<a href="#section-4.4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.4.1-4">ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{grouping_name}/{rel_path_inside_grouping}";
+```<a href="#section-4.4.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sub-case-2-node-deprecated-inside-grouping-replacement-outside-in-a-non-group">
@@ -1411,9 +1411,9 @@ ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{grouping_name}/{re
           </h4>
 <p id="section-4.4.2-1">A node that is deprecated within a grouping structure but has a replacement node outside any grouping.<a href="#section-4.4.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.4.2-2">YANG Example:<a href="#section-4.4.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.4.2-3"><code>yang
-ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
-</code><a href="#section-4.4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.4.2-3">```yang<a href="#section-4.4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.4.2-4">ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
+```<a href="#section-4.4.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sub-case-3-node-deprecated-inside-grouping-replacement-inside-existingnew-grouping">
@@ -1423,9 +1423,9 @@ ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
           </h4>
 <p id="section-4.4.3-1">A node that is deprecated within a grouping structure and has a replacement node within the same or a new grouping structure.<a href="#section-4.4.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.4.3-2">YANG Example:<a href="#section-4.4.3-2" class="pilcrow">¶</a></p>
-<p id="section-4.4.3-3"><code>yang
-ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{grouping_name}/{rel_path_inside_grouping}";
-</code><a href="#section-4.4.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.4.3-3">```yang<a href="#section-4.4.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.4.3-4">ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{grouping_name}/{rel_path_inside_grouping}";
+```<a href="#section-4.4.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sub-case-4-node-deprecated-outside-grouping-replacement-outside-grouping">
@@ -1435,9 +1435,9 @@ ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{grouping_name}/{re
           </h4>
 <p id="section-4.4.4-1">A node that is deprecated outside a grouping structure and has a replacement node also outside any grouping.<a href="#section-4.4.4-1" class="pilcrow">¶</a></p>
 <p id="section-4.4.4-2">YANG Example:<a href="#section-4.4.4-2" class="pilcrow">¶</a></p>
-<p id="section-4.4.4-3"><code>yang
-ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
-</code><a href="#section-4.4.4-3" class="pilcrow">¶</a></p>
+<p id="section-4.4.4-3">```yang<a href="#section-4.4.4-3" class="pilcrow">¶</a></p>
+<p id="section-4.4.4-4">ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
+```<a href="#section-4.4.4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1468,16 +1468,16 @@ ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
         </h3>
 <p id="section-4.6-1">When deprecating structures like container or list at their respective levels, it is essential to ensure that the replacement is explicitly mentioned at all sub-levels, including child elements such as leaf, leaf-list, or nested structures. This approach ensures clarity and provides a complete mapping of deprecated elements to their replacements, making it easier for users to transition to the new structure.<a href="#section-4.6-1" class="pilcrow">¶</a></p>
 <p id="section-4.6-2">YANG Example:<a href="#section-4.6-2" class="pilcrow">¶</a></p>
-<p id="section-4.6-3">```yang
-container old-container {
+<p id="section-4.6-3">```yang<a href="#section-4.6-3" class="pilcrow">¶</a></p>
+<p id="section-4.6-4">container old-container {
   status deprecated;
-  ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{replacement_container_path}";<a href="#section-4.6-3" class="pilcrow">¶</a></p>
-<p id="section-4.6-4">leaf old-leaf {
+  ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{replacement_container_path}";<a href="#section-4.6-4" class="pilcrow">¶</a></p>
+<p id="section-4.6-5">leaf old-leaf {
     status deprecated;
     ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{replacement_leaf_path}";
   }
 }
-```<a href="#section-4.6-4" class="pilcrow">¶</a></p>
+```<a href="#section-4.6-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1494,23 +1494,23 @@ container old-container {
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-ietf-replace-path-extyang-m" class="section-name selfRef"><code>ietf-replace-path-ext.yang</code> module</a>
         </h3>
 <p id="section-5.1-1">YANG Example:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">```yang
-module ietf-replace-path-ext {
+<p id="section-5.1-2">```yang<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">module ietf-replace-path-ext {
   namespace "urn:ietf:params:xml:ns:yang:ietf-replace-path-ext";
-  prefix ietf-ext;<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">organization "IETF NETMOD Working Group";<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">contact "IETF NETMOD Working Group <a href="mailto:netmod@ietf.org">netmod@ietf.org</a>";<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">description
+  prefix ietf-ext;<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">organization "IETF NETMOD Working Group";<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-5">contact "IETF NETMOD Working Group <a href="mailto:netmod@ietf.org">netmod@ietf.org</a>";<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<p id="section-5.1-6">description
     "This module defines extensions for additional metadata.
      Copyright (c) 2024 IETF Trust and the persons identified as
-     authors of the code. All rights reserved.";<a href="#section-5.1-5" class="pilcrow">¶</a></p>
-<p id="section-5.1-6">extension replacement-info {
+     authors of the code. All rights reserved.";<a href="#section-5.1-6" class="pilcrow">¶</a></p>
+<p id="section-5.1-7">extension replacement-info {
     argument "value";
     description
       "Provides replacement model information for deprecated/obsolete model.";
   }
 }
-```<a href="#section-5.1-6" class="pilcrow">¶</a></p>
+```<a href="#section-5.1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="example-deprecation-regression-test-17131yang-module">
@@ -1519,21 +1519,21 @@ module ietf-replace-path-ext {
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-example-deprecation-regress" class="section-name selfRef"><code>example-deprecation-regression-test-17131.yang</code> module</a>
         </h3>
 <p id="section-5.2-1">YANG Example:<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">```yang
-module example-deprecation-regression-test-17131 {
+<p id="section-5.2-2">```yang<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">module example-deprecation-regression-test-17131 {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:example-deprecation-regression-test";
-  prefix depr-reg-test;<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3">import example-depr-reg-test-helper-17131 {
+  prefix depr-reg-test;<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">import example-depr-reg-test-helper-17131 {
     prefix depr-reg-test-helper;
-  }<a href="#section-5.2-3" class="pilcrow">¶</a></p>
-<p id="section-5.2-4">import ietf-replace-path-ext {
-    prefix ietf-ext;
   }<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2-5">container deprecation-regression-test {
+<p id="section-5.2-5">import ietf-replace-path-ext {
+    prefix ietf-ext;
+  }<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.2-6">container deprecation-regression-test {
     container configurations {
-      container config {<a href="#section-5.2-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2-6">
+      container config {<a href="#section-5.2-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-7">
 <pre>
     // Case 1 : Leaf deprecated with a replacement in the same container.
     leaf case1 {
@@ -1919,7 +1919,7 @@ module example-deprecation-regression-test-17131 {
     }
   }
 }   } } ```
-</pre><a href="#section-5.2-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-7" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -1929,17 +1929,17 @@ module example-deprecation-regression-test-17131 {
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-example-deprecation-regressi" class="section-name selfRef"><code>example-deprecation-regression-test-helper-module-17131.yang</code> module</a>
         </h3>
 <p id="section-5.3-1">YANG Example:<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">```yang
-module example-depr-reg-test-helper-17131 {
-  yang-version 1.1;<a href="#section-5.3-2" class="pilcrow">¶</a></p>
-<p id="section-5.3-3">namespace "urn:ietf:params:xml:ns:yang:example-depr-reg-test-helper";<a href="#section-5.3-3" class="pilcrow">¶</a></p>
-<p id="section-5.3-4">prefix depr-reg-test-helper;<a href="#section-5.3-4" class="pilcrow">¶</a></p>
-<p id="section-5.3-5">organization "IETF NETMOD Working Group";<a href="#section-5.3-5" class="pilcrow">¶</a></p>
-<p id="section-5.3-6">contact "IETF NETMOD Working Group <a href="mailto:netmod@ietf.org">netmod@ietf.org</a>";<a href="#section-5.3-6" class="pilcrow">¶</a></p>
-<p id="section-5.3-7">import ietf-replace-path-ext {
+<p id="section-5.3-2">```yang<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-3">module example-depr-reg-test-helper-17131 {
+  yang-version 1.1;<a href="#section-5.3-3" class="pilcrow">¶</a></p>
+<p id="section-5.3-4">namespace "urn:ietf:params:xml:ns:yang:example-depr-reg-test-helper";<a href="#section-5.3-4" class="pilcrow">¶</a></p>
+<p id="section-5.3-5">prefix depr-reg-test-helper;<a href="#section-5.3-5" class="pilcrow">¶</a></p>
+<p id="section-5.3-6">organization "IETF NETMOD Working Group";<a href="#section-5.3-6" class="pilcrow">¶</a></p>
+<p id="section-5.3-7">contact "IETF NETMOD Working Group <a href="mailto:netmod@ietf.org">netmod@ietf.org</a>";<a href="#section-5.3-7" class="pilcrow">¶</a></p>
+<p id="section-5.3-8">import ietf-replace-path-ext {
     prefix ietf-ext;
-  }<a href="#section-5.3-7" class="pilcrow">¶</a></p>
-<p id="section-5.3-8">// Case 6 : Leaf inside a grouping deprecated, replaced in the same grouping but imported through a different module and used in various modules.
+  }<a href="#section-5.3-8" class="pilcrow">¶</a></p>
+<p id="section-5.3-9">// Case 6 : Leaf inside a grouping deprecated, replaced in the same grouping but imported through a different module and used in various modules.
   grouping groupCase6 {
     leaf case6 {
       type uint8;
@@ -1964,7 +1964,7 @@ module example-depr-reg-test-helper-17131 {
     }
   }
 }
-```<a href="#section-5.3-8" class="pilcrow">¶</a></p>
+```<a href="#section-5.3-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="example-deprecation-regression-test-file-2-17131yang-module">
@@ -1973,15 +1973,15 @@ module example-depr-reg-test-helper-17131 {
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-example-deprecation-regressio" class="section-name selfRef"><code>example-deprecation-regression-test-file-2-17131.yang</code> module</a>
         </h3>
 <p id="section-5.4-1">YANG Example:<a href="#section-5.4-1" class="pilcrow">¶</a></p>
-<p id="section-5.4-2">```yang
-module example-deprecation-regression-test-file-2-17131 {
+<p id="section-5.4-2">```yang<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-3">module example-deprecation-regression-test-file-2-17131 {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:example-deprecation-regression-test-file-2";
-  prefix depr-reg-test-2;<a href="#section-5.4-2" class="pilcrow">¶</a></p>
-<p id="section-5.4-3">import ietf-replace-path-ext {
+  prefix depr-reg-test-2;<a href="#section-5.4-3" class="pilcrow">¶</a></p>
+<p id="section-5.4-4">import ietf-replace-path-ext {
     prefix ietf-ext;
-  }<a href="#section-5.4-3" class="pilcrow">¶</a></p>
-<p id="section-5.4-4">container deprecation-regression-test-2 {
+  }<a href="#section-5.4-4" class="pilcrow">¶</a></p>
+<p id="section-5.4-5">container deprecation-regression-test-2 {
     container configurations {
       container config {
         // Case 3 : Leaf deprecated with a replacement located in another YANG file(example-deprecation-regression-test-file-2.yang)
@@ -1993,7 +1993,7 @@ module example-deprecation-regression-test-file-2-17131 {
     }
   }
 }
-```<a href="#section-5.4-4" class="pilcrow">¶</a></p>
+```<a href="#section-5.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
