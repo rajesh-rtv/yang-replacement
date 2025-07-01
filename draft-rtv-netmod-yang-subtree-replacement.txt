@@ -7,7 +7,7 @@ Internet-Draft                                          S. V. G. Karnati
 Intended status: Informational                                   S. Jain
 Expires: 3 December 2025                                  V. Ramamoorthy
                                                       V. H. Nagamangalam
-                                                                    IETF
+                                                     Cisco Systems, Inc.
                                                              1 June 2025
 
 
@@ -234,18 +234,20 @@ Table of Contents
 
 4.2.  Case 1: Simple Node with Replacement
 
-   *  *Description:* Node that is deprecated and has a replacement node
+   Node that is deprecated and has a replacement node.
 
-   *  *Syntax:* ietf-ext:replacement-info
-      "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
+   YANG Example:
+
+   yang ietf-ext:replacement-info
+   "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
 
 4.3.  Case 2: Node Deprecated with No Replacement
 
-   *  *Description:* Node that is deprecated and has no replacement
-      node.
+   Node that is deprecated and has no replacement node.
 
-   *  *Syntax:* ietf-ext:replacement-info
-      "REPLACEMENT_ABSOLUTE_PATH:None";
+   YANG Example:
+
+   yang ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:None";
 
 4.4.  Case 3: Grouping Cases
 
@@ -257,13 +259,9 @@ Table of Contents
    relative XPath from the top level of the grouping.  In all other
    cases, an absolute XPath can be provided.
 
-   *  *Uniquely Identify the Grouping:* Utilize the file name and
-      grouping name to uniquely identify the grouping within the YANG
-      model.
-
-   *  *Relative XPath for Groupings (rel_path_inside_grouping):* Provide
-      a relative XPath from the top level of the grouping to pinpoint
-      the node.
+   Utilize the file name and grouping name to uniquely identify the
+   grouping within the YANG model.  Provide a relative XPath from the
+   top level of the grouping to pinpoint the node.
 
    This approach ensures that nodes within groupings can be accurately
    identified and referenced, while maintaining clarity and precision
@@ -272,41 +270,50 @@ Table of Contents
 4.4.1.  Sub-Case 1: Node Deprecated Outside Grouping, Replacement Inside
         Grouping
 
-   *  *Description:* A node that is deprecated outside a grouping
-      structure but has a replacement node within a specific grouping.
+   A node that is deprecated outside a grouping structure but has a
+   replacement node within a specific grouping.
 
-   *  *Syntax:* ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_n
-      ame}:{grouping_name}/{rel_path_inside_grouping}";
+   YANG Example:
+
+   yang ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{gr
+   ouping_name}/{rel_path_inside_grouping}";
 
 4.4.2.  Sub-Case 2: Node Deprecated Inside Grouping, Replacement Outside
         in a non-group
 
-   *  *Description:* A node that is deprecated within a grouping
-      structure but has a replacement node outside any grouping.
+   A node that is deprecated within a grouping structure but has a
+   replacement node outside any grouping.
 
-   *  *Syntax:* ietf-ext:replacement-info
-      "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
+   YANG Example:
+
+   yang ietf-ext:replacement-info
+   "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
 
 4.4.3.  Sub-Case 3: Node Deprecated Inside Grouping, Replacement Inside
         Existing/New Grouping
 
-   *  *Description:* A node that is deprecated within a grouping
-      structure and has a replacement node within the same or a new
-      grouping structure.
+   A node that is deprecated within a grouping structure and has a
+   replacement node within the same or a new grouping structure.
 
-   *  *Syntax:* ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_n
-      ame}:{grouping_name}/{rel_path_inside_grouping}";
+   YANG Example:
+
+   yang ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{gr
+   ouping_name}/{rel_path_inside_grouping}";
 
 4.4.4.  Sub-Case 4: Node Deprecated Outside Grouping, Replacement
         Outside Grouping
 
-   *  *Description:* A node that is deprecated outside a grouping
-      structure and has a replacement node also outside any grouping.
+   A node that is deprecated outside a grouping structure and has a
+   replacement node also outside any grouping.
 
-   *  *Syntax:* ietf-ext:replacement-info
-      "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
+   YANG Example:
+
+   yang ietf-ext:replacement-info
+   "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
 
 4.5.  Summary of Syntax Notations
+
+   The following syntax notations are used for replacement paths:
 
    *  /{File_name}:{grouping_name}/{rel_path_inside_grouping}: Indicates
       the relative path of the replacement node within a specified
@@ -328,6 +335,16 @@ Table of Contents
    their replacements, making it easier for users to transition to the
    new structure.
 
+   YANG Example:
+
+   ```yang container old-container { status deprecated; ietf-
+   ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{replace
+   ment_container_path}";
+
+   leaf old-leaf { status deprecated; ietf-ext:replacement-info
+   "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{replacement_leaf_path}"; } }
+   ```
+
 5.  Example Implementation
 
    The following examples demonstrate how the replacement path
@@ -337,6 +354,8 @@ Table of Contents
    production environments.
 
 5.1.  ietf-replace-path-ext.yang module
+
+   YANG Example:
 
    ```yang module ietf-replace-path-ext { namespace
    "urn:ietf:params:xml:ns:yang:ietf-replace-path-ext"; prefix ietf-ext;
@@ -355,6 +374,8 @@ Table of Contents
    ```
 
 5.2.  example-deprecation-regression-test-17131.yang module
+
+   YANG Example:
 
    ```yang module example-deprecation-regression-test-17131 { yang-
    version 1.1; namespace "urn:ietf:params:xml:ns:yang:example-
@@ -756,6 +777,8 @@ Table of Contents
 5.3.  example-deprecation-regression-test-helper-module-17131.yang
       module
 
+   YANG Example:
+
    ```yang module example-depr-reg-test-helper-17131 { yang-version 1.1;
 
    namespace "urn:ietf:params:xml:ns:yang:example-depr-reg-test-helper";
@@ -784,6 +807,8 @@ Table of Contents
    modules, leaf case6-replacement (NEW)"; } } } ```
 
 5.4.  example-deprecation-regression-test-file-2-17131.yang module
+
+   YANG Example:
 
    ```yang module example-deprecation-regression-test-file-2-17131 {
    yang-version 1.1; namespace "urn:ietf:params:xml:ns:yang:example-
@@ -879,25 +904,25 @@ Acknowledgments
 Authors' Addresses
 
    Rajesh Tarakkad Venkateswaran
-   IETF
+   Cisco Systems, Inc.
    Email: rtv@cisco.com
 
 
    Sai Venkata Giri Karnati
-   IETF
+   Cisco Systems, Inc.
    Email: saikarna@cisco.com
 
 
    Sarthak Jain
-   IETF
+   Cisco Systems, Inc.
    Email: sarthakj@cisco.com
 
 
    Veena Ramamoorthy
-   IETF
+   Cisco Systems, Inc.
    Email: vemoorth@cisco.com
 
 
    Venkata Harish Nagamangalam
-   IETF
+   Cisco Systems, Inc.
    Email: vnagaman@cisco.com
