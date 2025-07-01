@@ -703,7 +703,8 @@ module example-depr-reg-test-helper-17131 {
     prefix ietf-ext;
   }
 
-  // Case 6 : Leaf inside a grouping deprecated, replaced in the same grouping but imported through a different module and used in various modules.
+  // Case 6 : Leaf inside a grouping deprecated, replaced in the same grouping but imported through 
+  // a different module and used in various modules.
   grouping groupCase6 {
     leaf case6 {
       type uint8;
@@ -711,9 +712,9 @@ module example-depr-reg-test-helper-17131 {
       status deprecated;
       description
         "This leaf gives information about Case 6 - Leaf inside a grouping
-         deprecated, replaced in the same grouping but imported through a
-         different module and used in various modules, leaf case-6
-         (DEPRECATED)";
+         deprecated, replaced in the same grouping but imported through
+         a different module and used in various modules,
+         leaf case-6 (DEPRECATED)";
       ietf-ext:replacement-info
         "REPLACEMENT_REL_PATH:/example-depr-reg-test-helper-module-17131/groupCase6/case6-replacement";
     }
@@ -722,9 +723,9 @@ module example-depr-reg-test-helper-17131 {
       default 11;
       description
         "This leaf gives information about Case 6 - Leaf inside a grouping
-         deprecated, replaced in the same grouping but imported through a
-         different module and used in various modules, leaf case6-replacement
-         (NEW)";
+         deprecated, replaced in the same grouping but imported
+         through a different module and used in various modules,
+         leaf case6-replacement (NEW)";
     }
   }
 }
