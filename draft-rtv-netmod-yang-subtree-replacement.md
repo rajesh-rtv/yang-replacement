@@ -146,6 +146,7 @@ Node that is deprecated and has a replacement node.
 YANG Example:
 
 ```yang
+
 ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
 ```
 
@@ -156,6 +157,7 @@ Node that is deprecated and has no replacement node.
 YANG Example:
 
 ```yang
+
 ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:None";
 ```
 
@@ -174,6 +176,7 @@ A node that is deprecated outside a grouping structure but has a replacement nod
 YANG Example:
 
 ```yang
+
 ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{grouping_name}/{rel_path_inside_grouping}";
 ```
 
@@ -184,6 +187,7 @@ A node that is deprecated within a grouping structure but has a replacement node
 YANG Example:
 
 ```yang
+
 ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
 ```
 
@@ -194,6 +198,7 @@ A node that is deprecated within a grouping structure and has a replacement node
 YANG Example:
 
 ```yang
+
 ietf-ext:replacement-info "REPLACEMENT_REL_PATH:/{File_name}:{grouping_name}/{rel_path_inside_grouping}";
 ```
 
@@ -204,6 +209,7 @@ A node that is deprecated outside a grouping structure and has a replacement nod
 YANG Example:
 
 ```yang
+
 ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{abs_path}";
 ```
 
@@ -222,6 +228,7 @@ When deprecating structures like container or list at their respective levels, i
 YANG Example:
 
 ```yang
+
 container old-container {
   status deprecated;
   ietf-ext:replacement-info "REPLACEMENT_ABSOLUTE_PATH:/{File_name}:{replacement_container_path}";
@@ -242,6 +249,7 @@ The following examples demonstrate how the replacement path extensions can be im
 YANG Example:
 
 ```yang
+
 module ietf-replace-path-ext {
   namespace "urn:ietf:params:xml:ns:yang:ietf-replace-path-ext";
   prefix ietf-ext;
@@ -268,6 +276,7 @@ module ietf-replace-path-ext {
 YANG Example:
 
 ```yang
+
 module example-deprecation-regression-test-17131 {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:example-deprecation-regression-test";
@@ -678,6 +687,7 @@ module example-deprecation-regression-test-17131 {
 YANG Example:
 
 ```yang
+
 module example-depr-reg-test-helper-17131 {
   yang-version 1.1;
 
@@ -725,6 +735,7 @@ module example-depr-reg-test-helper-17131 {
 YANG Example:
 
 ```yang
+
 module example-deprecation-regression-test-file-2-17131 {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:example-deprecation-regression-test-file-2";
